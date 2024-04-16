@@ -5,6 +5,9 @@ import { useHistory } from 'react-router-dom';
 
 import Loginerror from "../Page/Loginerror.jsx";
 
+
+
+
 function Login() {
     const history = useHistory();
 
@@ -81,7 +84,10 @@ function Login() {
                                 <span
                                     className="absolute top-0 left-0 w-full h-full bg-purple-500 opacity-0 transition duration-300"></span>
                             </button>
+
+
                         </div>
+
                     </div>
                 </div>
             </div>

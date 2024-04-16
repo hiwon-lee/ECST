@@ -8,14 +8,14 @@ import TodoForm from "../components/TodoForm.jsx";
 import Store from "../TodoRedux/Store.jsx";
 import { FaHeartCirclePlus } from "react-icons/fa6";
 import { useLocation } from "react-router-dom";
-<<<<<<< HEAD
+
 
 import PracticeCam from "../components/PracticeCam.jsx";
 import Todo from "../components/Todo.jsx";
-=======
+
 import Video from "../components/Video.jsx";
-import PracticeCam from "../components/PracticeCam.jsx";
->>>>>>> dadaffef1d673510062569035cc5e4d9818ae8b0
+
+
 
 function Home() {
   const [user, setUser] = useState("로그인 필요");
@@ -26,12 +26,11 @@ function Home() {
 
   //로그인 버튼 시, 로그인 페이지로 전환
   const history = useHistory();
-<<<<<<< HEAD
 
   const [stream, setStream] = useState(false);
-=======
-const [stream, setStream] = useState(false);
->>>>>>> dadaffef1d673510062569035cc5e4d9818ae8b0
+
+
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -43,7 +42,7 @@ const [stream, setStream] = useState(false);
         const email = location.state.email;
         console.log(email);
 
-<<<<<<< HEAD
+
         // study_todo 가져오기 위한 axios
         const response = await axios.get("http://127.0.0.1:8000/api/study/", {
           params: {
@@ -64,7 +63,7 @@ const [stream, setStream] = useState(false);
           history.push("/login");
         }
       }
-=======
+
       // study_todo 가져오기 위한 axios
       const response = await axios.get("http://127.0.0.1:8000/api/study/", {
         params: {
@@ -77,7 +76,7 @@ const [stream, setStream] = useState(false);
       console.log(response.data.feeds);
 
       setisLoading(false);
->>>>>>> dadaffef1d673510062569035cc5e4d9818ae8b0
+
     } catch (error) {
       console.log(error);
     }

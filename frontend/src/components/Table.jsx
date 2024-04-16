@@ -14,17 +14,17 @@ import { FaCamera } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
 import { TbProgressCheck } from "react-icons/tb";
 import TodoItem from "./TodoItem.jsx";
-<<<<<<< HEAD
-import { GrPowerReset } from "react-icons/gr";
-=======
 
->>>>>>> dadaffef1d673510062569035cc5e4d9818ae8b0
+import { GrPowerReset } from "react-icons/gr";
+
+
+
 
 const Table = ({ study, isLoading, setStudy, setStream, stream }) => {
   const [editText, setEditText] = useState({
     study_todo: "",
   });
-  const [selectedItemId, setSelectedItemId] = useState(null);
+  //const [selectedItemId, setSelectedItemId] = useState(null);
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://127.0.0.1:8000/api/study/${id}/`);
@@ -74,8 +74,7 @@ const Table = ({ study, isLoading, setStudy, setStream, stream }) => {
     });
   };
 
-<<<<<<< HEAD
-=======
+
   const [selectedItemId, setSelectedItemId] = useState(null);
 
   const [time, setTime] = useState(0);
@@ -95,7 +94,6 @@ const Table = ({ study, isLoading, setStudy, setStream, stream }) => {
     return () => clearInterval(intervalId);
   }, [isRunning]);
 
->>>>>>> dadaffef1d673510062569035cc5e4d9818ae8b0
   // 공부 시작을 위한 라디오버튼 활성화 함수
   const handleRadioChange = (itemId) => {
     setSelectedItemId(itemId);
@@ -181,17 +179,17 @@ const Table = ({ study, isLoading, setStudy, setStream, stream }) => {
               </span>
             </th>
             <th className="p-3 text-sm font-semibold tracking-wide text-right items-center">
-<<<<<<< HEAD
+
               <div className="flex items-center">
                 <GrPowerReset />
                 <button onClick={handleReset}>Reset</button>
               </div>
-=======
+
               <RxLapTimer />
               <button onClick={() => handleReset(getSelectedItemData().id)}>
                 리셋
               </button>
->>>>>>> dadaffef1d673510062569035cc5e4d9818ae8b0
+
             </th>
           </tr>
         </thead>

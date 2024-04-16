@@ -15,6 +15,7 @@ export const TODO_TEXT = "TODO_TEXT";
 export const RESET_STATE = "RESET_STATE";
 //캠 카메라 상태
 export const CAM_START = "CAM_START";
+export const CAM_STOP = 'STOP_CAMERA';
 
 //<action 정의>
 export const studyCompleted = (id, study_completed) => ({
@@ -47,9 +48,13 @@ export const resetState = (id) => ({
   payload: { id },
 });
 
-export const camStart = (id) => ({
+export const startCamera = (stream) => ({
   type: CAM_START,
-  payload: { id },
+  payload: stream
+});
+
+export const stopCamera = () => ({
+  type: CAM_STOP
 });
 
 export const actionCreators = {

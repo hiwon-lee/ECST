@@ -11,7 +11,7 @@ import {
   studyCompleted,
   resetState,
   todoText,
-  camStart,
+
 } from "../TodoRedux/Actions.jsx";
 
 //아이콘
