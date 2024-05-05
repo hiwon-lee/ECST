@@ -2,10 +2,10 @@ import React, { useRef, useEffect } from "react";
 import TodoItem from "./TodoItem.jsx";
 import Camerabtn from "./Camerabtn.jsx";
 import Video from "./Video.jsx";
-import { useSelector } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 
 function PracticeCam() {
-  //const [stream, setStream] = useState(null);
+  const dispatch = useDispatch();
   const videoRef = useRef(null);
   const stream = useSelector(state => state.cameraStream);
   //캠 시작 버튼
@@ -14,7 +14,8 @@ function PracticeCam() {
   const start = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      setStream(stream);
+      //setStream(stream);
+      dispatch(startCamera(stream));
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
       }
@@ -30,21 +31,22 @@ function PracticeCam() {
     if (stream) {
       const tracks = stream.getTracks();
       tracks.forEach((track) => track.stop());
-      setStream(null);
+      //setStream(null);
+      dispatch(stopCamera());
     }
   };
 
 
-  useEffect(() => {
-    start();
-
-    return () => {
-      stop();
-
-
-      setStream(null);
-    };
-  }, []);
+ // useEffect(() => {
+ //    start();
+ //
+ //    return () => {
+ //      stop();
+ //
+ //
+ //      setStream(null);
+ //    };
+ //  }, []);
 
     useEffect(() => {
     if (videoRef.current) {

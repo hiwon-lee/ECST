@@ -21,6 +21,7 @@ import { RxLapTimer } from "react-icons/rx";
 import { MdDelete } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { GrPowerReset } from "react-icons/gr";
+
 import todoItem from "./TodoItem.jsx";
 
 const Todo = ({ study, isLoading, setStudy, setStream, stream }) => {
@@ -104,10 +105,10 @@ const Todo = ({ study, isLoading, setStudy, setStream, stream }) => {
   return (
     <div>
       {selectedItemData && (
-        <div>
-          <h2>선택된 항목 데이터:</h2>
-          <p>ID: {selectedItemData.id}</p>
-          <p>Name: {selectedItemData.study_todo}</p>
+        <div className="mt-2 ml-2">
+          <h2><strong>To do</strong></h2>
+          <p>Num. {selectedItemData.id}</p>
+          <p>Content: {selectedItemData.study_todo}</p>
           {/* 다른 데이터 필드들을 여기에 추가 */}
         </div>
       )}

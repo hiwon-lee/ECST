@@ -84,7 +84,7 @@ function Loginerror() {
                         className="relative bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-transparent hover:text-purple-500 transition duration-300 w-22 h-10"
                     >
 
-                        <span className="relative z-10">Sign in</span>
+                        <span className="relative z-10">로그인</span>
                         <span
                             className="absolute top-0 left-0 w-full h-full bg-purple-500 opacity-0 transition duration-300"></span>
 

@@ -4,6 +4,7 @@ import axios from "axios";
 import {useHistory} from 'react-router-dom';
 import React from "react";
 import Errormodal from "../components/Errormodal.jsx";
+import {MdTimer} from "react-icons/md";
 
 
 function Signup() {
@@ -166,12 +167,16 @@ function Signup() {
 
     return (
 
-        <div className="bg-blue-950">
-            <div className="bg-blue-950">
-                <header className="text-white text-center text-7xl signup-title py-6 font-bold  sans-serif mt-4">
-                    <h1>Let's be friends!</h1>
+        <div className="bg-white">
+            <div className="bg-white">
+                <div className="flex items-center justify-center text-center text-5sm font-bold text-sky-400 my-5">
+                    <h1 className="inline-flex items-center">LEARNING MATE</h1>
+                    <MdTimer className="inline-block "/>
+                </div>
+                <header className="text-black text-center text-xl signup-title py-6   sans-serif mt-4">
+                    <h1>회원가입</h1>
                 </header>
-                <div className="text-center bg-blue-950">
+                <div className="text-center bg-white">
                     <div className="mx-auto shadow-md  w-80 p-16 mb-10 bg-white">
                         <form action='http://localhost:8000/api/join/' method='post' onSubmit={onSubmit}>
                             <label htmlFor="id"></label>
@@ -277,7 +282,7 @@ function Signup() {
 
                             <div className="mt-4">
                                 <button
-                                    className="text-3sm font-bold text-blue-900  transition-all duration-300 ease-in-out hover:shadow-inner shadow-xl hover:shadow-outline hover:translate-x-1 hover:translate-y-1 "
+                                    className="text-3sm font-bold text-gray-900  transition-all duration-300 ease-in-out hover:shadow-inner shadow-xl hover:shadow-outline hover:translate-x-1 hover:translate-y-1 "
                                     type="submit">가입하기
                                 </button>
                             </div>

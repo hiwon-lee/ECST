@@ -54,11 +54,11 @@ const TodoForm = ({ user, setTodos, fetchData }) => {
         type="text"
         placeholder="Add Todo"
         value={newTodo.study_todo}
-        className="input input-bordered input-info w-full max-w-xs"
+        className="ml-2 input input-bordered input-info w-full max-w-xs"
         onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
-      <button onClick={postTodo} className="btn btn-primary ml-2">
+      <button onClick={postTodo} className="btn bg-white border-black ml-2">
         Add Todo
       </button>
     </>
