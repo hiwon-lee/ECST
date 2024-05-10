@@ -112,46 +112,36 @@ function Home() {
 
             <div className="flex">
                 <div className="bg-white min-h-screen p-2 rounded-lg mt-4 w-1/2">
-
-
                     <div className="ml-2 mt-5 mb-5 font-bold text-4xl">
                         총 누적 공부시간 :{durationTime}
                     </div>
-
-
-                    <div className="flex" style={{color: 'black'}}>
-                        <div className="bg-sky-100 min-h-screen p-2 rounded-lg mt-4 w-full">
-
+                    <div className="flex">
+                        <div className="bg-sky-100 min-h-screen p-2 rounded-lg mt-4 flex-grow"> {/* 기존 Todo 리스트 및 Form */}
                             <nav className="pt-8">
-                                <h1 className="font-bold text-5xl text-left pb-8 ml-4 text-gray-800">To Do List </h1>
+                                <h1 className="font-bold text-5xl text-left pb-8 ml-4 text-gray-800">To Do List</h1>
                             </nav>
-                            {/* Body */}
                             <TodoForm user={user} setStudy={setStudy} fetchData={fetchData}/>
-
                             <Todo study={study} isLoading={isLoading} setStudy={setStudy}/>
                         </div>
-                        <div>
-                            <div>
-
-                                <PracticeCam/>
-
-                                <ImageModel
-                                    preview={true}
-                                    size={200}
-                                    info={true}
-                                    interval={500}
-                                    onPredict={(prediction) => {
-                                        console.log(prediction[0].probability);
-                                    }}
-                                    model_url="https://teachablemachine.withgoogle.com/models/C4AwVVXHM/"></ImageModel>
-
-                            </div>
-                            <div>Graph</div>
+                        <div style={{flexGrow: 2, minWidth: "50%"}}> {/* ImageModel 컴포넌트를 꽉 채우도록 조정 */}
+                            <ImageModel
+                                preview={true}
+                                size={200}
+                                info={true}
+                                interval={500}
+                                onPredict={(prediction) => {
+                                    console.log(prediction[0].probability);
+                                }}
+                                model_url="https://teachablemachine.withgoogle.com/models/C4AwVVXHM/"/>
                         </div>
+                        <div>Graph</div>
                     </div>
                 </div>
+
             </div>
         </div>
+
+
     );
 }
 
