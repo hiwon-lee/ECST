@@ -109,27 +109,6 @@ const Image = ({
   }, [model_url, isStudy, setGraphActive]);
 
 
-  let label = [];
-  if (info && prediction) {
-    label = (
-      <table id="label-container">
-        <thead>
-          <tr>
-            <td>class name</td>
-            <td>probability</td>
-          </tr>
-        </thead>
-        <tbody>
-          {prediction.map((p, i) => (
-            <tr key={i}>
-              <td>{p.className}</td>
-              <td>{p.probability.toFixed(2)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
-  }
   return (
       <div>
         <div id="webcam-container" ref={previewRef}/>
