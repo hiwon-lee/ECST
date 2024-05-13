@@ -11,25 +11,14 @@ function App() {
     return (
         <Router>
             <Switch>
-                <Route path="/login">
-                    <Login/>
-
+                <Route path="/" exact component={Home} />  // 홈 경로를 최상위에 위치시킵니다.
+                <Route path="/focus-analysis" exact component={Focus} />
+                <Route path="/my-page" exact component={Mypage} />
+                <Route path="/login" exact>
+                    <Login />
                 </Route>
-
-                <Route path="/signup">
-                    <Signup/>
-                </Route>
-
-                <Route path="/focus-analysis">
-                    <Focus/>
-                </Route>
-
-                <Route path="/my-page">
-                    <Mypage/>
-                </Route>
-
-                <Route path="/">
-                    <Home/>
+                <Route path="/signup" exact>
+                    <Signup />
                 </Route>
 
             </Switch>

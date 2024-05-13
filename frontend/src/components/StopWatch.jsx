@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, {useState,useCallback} from "react";
 // import "./StopWatch.css";
 import Timer from "./Timer";
 import ControlButtons from "./ControlButtons";
-import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment } from '../TodoRedux/counterSlice'
+import {useSelector, useDispatch} from 'react-redux'
+import {decrement, increment} from '../TodoRedux/counterSlice'
 import {studyStop} from "../TodoRedux/currTodo.jsx";
 
 function StopWatch() {
@@ -11,8 +11,8 @@ function StopWatch() {
     const [isPaused, setIsPaused] = useState(true);
     const [time, setTime] = useState(0);
     const count = useSelector((state) => state.counter.value)
-  const dispatch = useDispatch()
-  const isStudy = useSelector((state) => state.todoModifier.isStudy);
+    const dispatch = useDispatch()
+    const isStudy = useSelector((state) => state.todoModifier.isStudy);
 
     React.useEffect(() => {
         let interval = null;
@@ -24,7 +24,7 @@ function StopWatch() {
         } else {
             clearInterval(interval);
         }
-        if(isStudy) {
+        if (isStudy) {
             handleStart()
         } else {
             handleReset()
@@ -42,20 +42,21 @@ function StopWatch() {
     };
 
     const handlePauseResume = () => {
-        setIsPaused(!isPaused);
+        //setIsPaused(!isPaused);
+        setIsPaused((isPaused) => !isPaused);
     };
 
     const handleReset = () => {
         setIsActive(false);
         dispatch(studyStop())
-
+        setIsPaused(true);
+        setTime(0);
         setTime(0);
     };
 
     return (
-        <div className="stop-watch">
-
-            <Timer time={time} />
+        <div className="flex space-x-10">
+            <Timer time={time}/>
             <ControlButtons
                 active={isActive}
                 isPaused={isPaused}
@@ -67,4 +68,5 @@ function StopWatch() {
     );
 }
 
-export default StopWatch;
+export default React.memo(StopWatch);
+;
