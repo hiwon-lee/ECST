@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import * as tmImage from "@teachablemachine/image";
 import { useDispatch, useSelector, connect } from "react-redux";
+import Graph from "./Graph.jsx";
+
 
 import {
   todoElementMutator,
@@ -27,6 +29,9 @@ const Image = ({
   const intervalRef = React.useRef();
   const dispatch = useDispatch();
   const isStudy = useSelector((state) => state.todoModifier.isStudy);
+
+  //집중도 데이터
+  const [dataPoints, setDataPoints] = useState([]);
 
   async function init() {
     const modelURL = model_url + "model.json";
@@ -114,6 +119,10 @@ const Image = ({
         result && <div>
             현재 상태 : {result[0].className} {(result[0].probability * 100).toFixed(1) + '%'}
           </div>
+      }
+      {isStudy&&
+
+      <Graph dataPoints={dataPoints} active={setGraphActive}></Graph>
       }
 
     </div>

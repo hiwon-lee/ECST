@@ -30,16 +30,14 @@ function Home() {
   const isStudy = useSelector((state) => state.todoModifier.isStudy);
 
 
-  useEffect(() => {
-    fetchData();
-  }, [graphActive]);
+
 
   const fetchData = async () => {
     try {
       if (location.state && location.state.email) {
         // 서버에서 받은 응답 데이터에서 사용자 이메일을 가져옴
         const email = location.state.email;
-        console.log(email);
+        //console.log(email);
 
         // study_todo 가져오기 위한 axios
         const response = await axios.get("http://127.0.0.1:8000/api/study/", {
@@ -49,7 +47,7 @@ function Home() {
         });
         setUser(response.data.user);
 
-        console.log(response.data.feeds);
+        //console.log(response.data.feeds);
         await setStudy(response.data.feeds);
         setisLoading(false);
       } else {
@@ -70,59 +68,42 @@ function Home() {
     history.push("/login");
   };
 
-  //   const handlePredict = (prediction) => {
-  //     // 'Concentration' 클래스의 확률을 찾아서 dataPoints에 추가
-  //     const concentration = prediction.find(
-  //       (p) => p.className === "Concentration"
-  //     );
-  //     if (concentration) {
-  //       setDataPoints((prevPoints) => [
-  //         ...prevPoints,
-  //         concentration.probability * 100,
-  //       ]);
-  //     }
-  //   };
+
 
   const handlePredict = (prediction) => {
+    let concentration
     if (graphActive) {
-      const concentration = prediction.find(
+      concentration = prediction.find(
         (p) => p.className === "Concentration"
       );
+      // console.log(dataPoints);
+      // console.log(concentration)
       if (concentration) {
         setDataPoints((prevPoints) => [
           ...prevPoints,
           concentration.probability * 100,
         ]);
       }
+    } else {
+      concentration = null;
     }
   };
 
-  // const handlePredict = (prediction) => {
-  //   if (graphActive) {
-  //     const concentration = prediction.find(
-  //       (p) => p.className === "Concentration"
-  //     );
-  //     if (concentration) {
-  //       setDataPoints((prevPoints) => {
-  //         setDataPoints((prevPoints) => [
-  //           ...prevPoints,
-  //           concentration.probability * 100,
-  //         ]);
-  //         // const newPoints = [...prevPoints, concentration.probability * 100];
-  //         // return newPoints.slice(-10); // 최근 10분간의 데이터만 유지
-  //       });
-  //     }
-  //   }
-  // };
 
   const handleStart = () => {
     setDataPoints([]); // 그래프 데이터 리셋
     setGraphActive(true); // 그래프 활성화
+    console.log(dataPoints);
   };
   const handleStop = () => {
     setGraphActive(false); // 그래프 업데이트 비활성화
     setDataPoints([]); // 그래프 데이터 초기화
   };
+
+    useEffect(() => {
+    fetchData();
+  }, [graphActive, dataPoints, handlePredict]);
+
 
   const MenuBtn = () => {
     return (
@@ -175,8 +156,9 @@ function Home() {
       <div className="flex">
         <div className="bg-white min-h-screen p-2 rounded-lg mt-4 w-1/2">
           <div className="ml-2 mt-5 mb-5 font-bold text-3xl">
-            <StopWatch />
+
             누적 공부시간 :{durationTime}
+             <StopWatch />
           </div>
           {/*<div className="flex">*/}
           {/*  <div className="bg-white min-h-screen p-2 rounded-lg mt-4 w-1/2">*/}
@@ -197,32 +179,38 @@ function Home() {
               <Todo study={study} isLoading={isLoading} setStudy={setStudy} />
             </div>
             <div>
-              <div style={{width:'400px', height:'300px', background : 'black'}}>
+              <div style={{width: '400px', height: '300px', background: 'black'}}>
                 {/*<PracticeCam />*/}
-                { isStudy &&
+                {isStudy &&
 
                     <ImageModel
-                      preview={true}
-                      size={300}
-                      info={true}
-                      interval={50}
-                      onPredict={handlePredict}
-                      model_url="https://teachablemachine.withgoogle.com/models/IiLG2OMFg/"
-                      setGraphActive={setGraphActive}
-                      //onStart={handleStart} // 추가: 시작 핸들러
+                        preview={true}
+                        size={300}
+                        info={true}
+                        interval={50}
+                        onPredict={handlePredict}
+                        handleStart = {handleStart}
+                        handleStop = {handleStop}
+                        model_url="https://teachablemachine.withgoogle.com/models/nFlJjJXF5/"
+                        setGraphActive={setGraphActive}
+                        //onStart={handleStart} // 추가: 시작 핸들러
                     />
                 }
+
               </div>
+              <button onClick={handleStart}>Start 그래프시작</button>
+              <button onClick={handleStop}>Stop 그래프멈춰</button>
+              <Graph dataPoints={dataPoints} active={setGraphActive}></Graph>
               <div>
-                <CategoryImageModel
-                      preview={false}
-                      size={300}
-                      info={true}
-                      interval={50}
-                      onPredict={handlePredict}
-                      model_url="https://teachablemachine.withgoogle.com/models/nFlJjJXF5/"
-                />
-                <Graph dataPoints={dataPoints} active={setGraphActive}></Graph>
+                {/*<CategoryImageModel*/}
+                {/*      preview={false}*/}
+                {/*      size={300}*/}
+                {/*      info={true}*/}
+                {/*      interval={50}*/}
+                {/*      onPredict={handlePredict}*/}
+                {/*      model_url="https://teachablemachine.withgoogle.com/models/nFlJjJXF5/"*/}
+                {/*/>*/}
+                {/*<Graph dataPoints={dataPoints} active={setGraphActive}></Graph>*/}
               </div>
             </div>
           </div>

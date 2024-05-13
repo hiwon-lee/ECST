@@ -13,6 +13,7 @@ import {} from //camState, STUDY_STATE
 const Image = ({
   model_url,
   onPredict,
+    handleStop,
   preview = true,
   size,
   info = true,
@@ -40,7 +41,7 @@ const Image = ({
 
     setWebcam(webcam);
 
-    setGraphActive(true); // 그래프 활성화
+    //setGraphActive(true); // 그래프 활성화
 
     if (interval === null) {
       requestRef.current = window.requestAnimationFrame(loop);
@@ -78,7 +79,8 @@ const Image = ({
     if (webcam) {
       webcam.stop(); // 웹캠 정지
       setWebcam(null); // 웹캠 상태 초기화
-      setGraphActive(false);
+      handleStop();
+      //setGraphActive(false);
       console.log("그래프 멈추라");
     }
 
@@ -109,6 +111,7 @@ const Image = ({
   }, [model_url, isStudy, setGraphActive]);
 
 
+
   let label = [];
   if (info && prediction) {
     label = (
@@ -133,7 +136,8 @@ const Image = ({
   return (
       <div>
         <div id="webcam-container" ref={previewRef}/>
-        {/*<div> status: {label}</div>*/}
+        <div> status: {label}</div>
+
 
       </div>
   );
