@@ -12,13 +12,12 @@ import {} from //camState, STUDY_STATE
 "../TodoRedux/Actions.jsx";
 const Image = ({
   model_url,
-  onPredict,
-    handleStop,
+  onPredict, handleStop,
   preview = true,
   size,
   info = true,
   interval = null,
-  setGraphActive,
+  setGraphActive, graphActive,
 }) => {
   const [prediction, setPrediction] = useState(null);
   let [webcam, setWebcam] = useState(null);
@@ -40,8 +39,8 @@ const Image = ({
 
 
     setWebcam(webcam);
-
-    //setGraphActive(true); // 그래프 활성화
+    setGraphActive(true); // 그래프 활성화
+    console.log("graph 상채 : ", graphActive)
 
     if (interval === null) {
       requestRef.current = window.requestAnimationFrame(loop);
@@ -66,53 +65,60 @@ const Image = ({
 
     }
     async function predict() {
+      console.log("predict : ???wpqkf",isStudy);
       // predict can take in an image, video or canvas html element
       const prediction = await model.predict(webcam.canvas);
       setPrediction(prediction);
+
       if (onPredict) {
         onPredict(prediction);
+        // console.log(prediction)
       }
     }
   }
 
   async function stop() {
-    if (webcam) {
-      webcam.stop(); // 웹캠 정지
-      setWebcam(null); // 웹캠 상태 초기화
+    console.log("RJT껏다.")
+    //if (webcam) {
+    //   webcam.stop(); // 웹캠 정지
+    //   setWebcam(null); // 웹캠 상태 초기화
       handleStop();
-      //setGraphActive(false);
+      setGraphActive(false);
       console.log("그래프 멈추라");
-    }
+          console.log("graph 상채 stop : ", graphActive)
+
+    //}
 
   }
   async function start() {
     init();
   }
   useEffect(() => {
-    if (!isStudy) {
-      console.log("Stop state detected");
-      stop();
-      setGraphActive(false); // 웹캠이 정지될 때 그래프도 비활성화
-    } else {
-      console.log("Start state detected");
+    console.log("이미ㅣ장ㄴ : ", isStudy)
+    if (isStudy) {
+      console.log("시작 state detected");
       start();
-      setGraphActive(true); // 웹캠이 시작될 때 그래프도 활성화
+      // stop();
+      // setGraphActive(false); // 웹캠이 정지될 때 그래프도 비활성화
+    } else {
+      console.log("꺼짐")
+      stop();
     }
+    // else {
+    //   console.log("Start state detected");
+    //   start();
+    //   // setGraphActive(true); // 웹캠이 시작될 때 그래프도 활성화
+    // }
 
-    return () => {
-      stop(); // 컴포넌트가 언마운트될 때 웹캠 정지
-      setGraphActive(false); // 그래프 비활성화
-      if (interval === null) {
-        cancelAnimationFrame(requestRef.current);
-      } else {
-        clearTimeout(intervalRef.current);
-      }
-    };
-  }, [model_url, isStudy, setGraphActive]);
+
+  }, [model_url, isStudy, setGraphActive, graphActive,studyStop]);
 
 
 
   let label = [];
+  if (!isStudy) {
+    // console.log("뚱!!!")
+  }
   if (info && prediction) {
     label = (
       <table id="label-container">

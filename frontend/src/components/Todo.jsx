@@ -22,6 +22,10 @@ const Todo = ({ study, isLoading, setStudy, setStream, stream }) => {
   //리덕스 상태 가져오기
   const curr = useSelector((state) => state.todoModifier.value);
   const isStudy = useSelector((state) => state.todoModifier.isStudy);
+
+  useEffect(() => {
+    console.log("study 상태 변경됨:", isStudy);
+  }, [isStudy, studyStop]);
   //삭제
   const handleDelete = async (id) => {
     try {
@@ -98,6 +102,8 @@ const Todo = ({ study, isLoading, setStudy, setStream, stream }) => {
   const handleReset = () => {
     dispatch(studyStop())
     dispatch(todoElementMutator("공부항목을 선택해주세요"))
+    // console.log("")
+    console.log("reset을 누르고 study상태 : ", isStudy);
   };
 
   // 선택된 항목의 데이터를 가져오는 함수
@@ -106,6 +112,8 @@ const Todo = ({ study, isLoading, setStudy, setStream, stream }) => {
 
     return study.find((item) => item.id === selectedItemId);
   };
+
+
 
   const selectedItemData = getSelectedItemData(); // 선택된 항목의 데이터
 

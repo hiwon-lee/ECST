@@ -83,6 +83,10 @@ function Home() {
           ...prevPoints,
           concentration.probability * 100,
         ]);
+        console.log(prediction[0].probability);
+        console.log("datapoint : ", dataPoints)
+
+
       }
     } else {
       concentration = null;
@@ -102,7 +106,7 @@ function Home() {
 
     useEffect(() => {
     fetchData();
-  }, [graphActive, dataPoints, handlePredict]);
+  }, [graphActive, dataPoints, handlePredict, setGraphActive]);
 
 
   const MenuBtn = () => {
@@ -187,12 +191,13 @@ function Home() {
                         preview={true}
                         size={300}
                         info={true}
-                        interval={50}
+                        interval={1000}
                         onPredict={handlePredict}
                         handleStart = {handleStart}
                         handleStop = {handleStop}
                         model_url="https://teachablemachine.withgoogle.com/models/nFlJjJXF5/"
                         setGraphActive={setGraphActive}
+                        graphActive = {graphActive}
                         //onStart={handleStart} // 추가: 시작 핸들러
                     />
                 }
