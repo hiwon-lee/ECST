@@ -7,7 +7,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { getRecordConcentrate } from "./Utils/api";
 
 function Focus() {
-  const [user, setUser] = useState("로그인 필요");
+  const [user, setUser] = useState("-");
   const [isLoading, setisLoading] = useState(true);
   const [concentrateRecord, setConcentrateRecord] = useState([]);
   const history = useHistory();
