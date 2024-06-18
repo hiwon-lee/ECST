@@ -42,6 +42,11 @@ npm install react-redux
 npm install redux
 ```
 
+집중도 데이터 시각화 그래프를 위한 설치
+```
+npm install chatjs2
+```
+
 
 3. react는 frontend들어가서 작업
 
