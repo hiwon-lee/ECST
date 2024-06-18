@@ -42,7 +42,7 @@ npm install react-redux
 npm install redux
 ```
 
-집중도 데이터 시각화 그래프를 위한 설치
+집중도 데이터 그래프 시각화를 위한 설치
 ```
 npm install chatjs2
 ```
