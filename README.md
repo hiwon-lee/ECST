@@ -18,13 +18,6 @@ graph 그리기 위한 설치
 npm install react-chartjs-2 chart.js
 ```
 
-달력 그리기
-
-```
-npm install react-datepicker date-fns
-npm install —save-dev @types/react-datepicker
-```
-
 frontend 필요한 모듈 설치
 
 ```bash
@@ -40,6 +33,15 @@ npm install react-icons --save
 
 npm install daisyui
 ```
+
+redux 실행을 위한 설치
+
+```
+npm install react-redux
+
+npm install redux
+```
+
 
 3. react는 frontend들어가서 작업
 
