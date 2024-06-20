@@ -1,190 +1,130 @@
-# 프로젝트 가져오는 절차
+우리 프로젝트의 주요 폴더 구조는 아래와 같다.
+```bash
+ECST/
+├── frontend/
+│   ├── node_modules/
+│   ├── public/
+│   │   ├── index.html
+│   │   └── ...
+│   ├── src/
+│   │   ├── components/
+│   │   ├── App.js
+│   │   ├── index.js
+│   │   └── ...
+│   ├── .gitignore
+│   ├── package.json
+│   ├── package-lock.json
+│   └── README.md
+│
+├── backend/
+│   ├── myproject/
+│   │   ├── __init__.py
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   ├── wsgi.py
+│   │   └── ...
+│   ├── myapp/
+│   │   ├── migrations/
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   ├── views.py
+│   │   └── ...
+│   ├── db.sqlite3
+│   ├── manage.py
+│   ├── requirements.txt
+│   └── README.md
+│
+└── README.md
 
-보이니?
+```
 
-1. 본인 깃허브로 `fork`
-
-2. `fork`한 repository clone(복제하기) : 프로젝트가 운영될 폴더하나 생성하고 `git bash`나 터미널에서 해당 폴더 밑에서 명령어작업이든 머든 해야함
-
-명령어 :
+앞으로 실행을 위한 명령어를 소개할 것인데, 폴더 구조를 잘 파악해서 적절한 위치에서 해당 명령어를 수행해야 한다. (잘못된 위치에 실행하면 절대 안된다.)
+## 1. env setting
+먼저 가상환경 폴더를 세팅한다.
+해당 명령어는 ECST폴더 바로 안에서 진행한다.
 
 ```bash
-git clone https://github.com/자기이름/ECST.git
+## terminal command : 가상환경 만들기
+python -m venv env
+
+.\env\bin\activate
+
 ```
 
-graph 그리기 위한 설치
-
-```
-npm install react-chartjs-2 chart.js
-```
-
-frontend 필요한 모듈 설치
+## 2. FE 설정 및 모듈 설치
 
 ```bash
-cd frontend
+# FE 폴더로 이동 후, 설치 
+## ECST/frontend로 이동해야 한다.
+cd frontend  
+  
+npm install vite  
+  
+npm install react-redux @reduxjs/toolkit react-chartjs-2 chart.js
 
-npm install vite
 
-npm install -D tailwindcss postcss autoprefixer
 
-npx tailwindcss init -p
-
-npm install react-icons --save
-
-npm install daisyui
-```
-
-redux 실행을 위한 설치
 
 ```
 
-npm install react-redux
-
-npm install redux
-```
-
-
-
-
-3. react는 frontend들어가서 작업
-
-4. 서버 실행 방법
-
-### Run django server
-
-a. cd to backend
-b. `python manage.py runserver` 이게 서버 돌리는 코드
-
-### Run react server
-
-a. cd to frontend
-b.` npm run dev` 이게 클라이언트 돌리는 코드
-
-5. commit 방법 \*\*\*\*정말 중요
-
-   - 기본 순서는 pull > confict 해결 > push
-   - `fork`한 레포랑 `fork를 떠온 레포`를 먼저 똑같이 만들어주어야 함
-   - 그 후에 pull하고 ~~ push
-   - pull request를 기존 레포지토리에 요청
-   - 기존 레포지토리가 수락하면 코드가 적용됨
-
-6. 사실 이희원도 겁나 헷갈려서 맨날 날려먹으니까 찾아보기..
-
-[pr 정상적으로 처리하는 방법]
-https://uhgenie7.github.io/docs/dev/git/sync-repository
-
-[commit message 형식]
-https://velog.io/@palza4dev/TIL-28.-GitGithub-%EC%BB%A4%EB%B0%8B-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%9E%91%EC%84%B1%EB%B2%95
-
----
-
-## How to Setup React and Tailwind CSS with Vite in a Project
-
-참고문서
-https://tailwindcss.com/docs/guides/vite
-
-## 1. create your project folder and navigate to folder
+## 3. BE server + DB setting
 
 ```bash
-npm crate vite@latest your-project-name -- --template react
-cd yourt-project-name
+# backend 폴더로 이동
+## ECST\backend
+cd backend
+
+python manage.py makemigrations user study concentrate 
+python manage.py migrate 
+python manage.py runserver
+
+## rest
+pip install djangorestframework
+
+## cors
+pip install django-cors-headers
+
 ```
 
-### 2. install Tailwind CSS and Other Dependencies
+
+## 4. DEMO 실행
 
 ```bash
-npm install -D tailwindcss postcss autoprefixer
+# 아래의 로컬주소로 들어간다.
+http://localhost:5173/
+
 ```
 
-### 3. generate the configuration files
+![img_1.png](img_1.png)
+이런 화면이 보이면, `Sign up` 버튼을 누른다.
+
+#### 가상 계정 회원가입
 
 ```bash
-npx tailwindcss init -p
+ID : ecst@ewha.ac.kr
+password : 1234
+password confirm : 1234
+name : ecst
+tel : 010-8888-8888
+email : ecst@ewha.ac.kr
 ```
 
-### 4. configure source paths
+회원가입이 완료되면 로그인 화면으로 돌아와 로그인 한다.
+![img_2.png](img_2.png)
 
-tailwind.config.cjs 파일의 `content`에 경로를 추가한다.
+메인화면에 접속되면, `Todo`를 생성한다.
+![img_3.png](img_3.png)
 
-```javascript
-"./index.html",
-"./ser/**/*.{js,ts,jsx,tsx}",
-```
+이렇게 투두 항목이 생기면 마지막 열에 있는 재생 버튼을 클릭한다.
 
-### 5. add tailwind directives to your CSS
+![img_4.png](img_4.png)
 
-`./src/index.css`파일에 상태 추가
+캠이 켜지고, 집중도 분석이 되는 것을 확인할 수 있다.
+![img_5.png](img_5.png)
 
-```bash
-@tailwind base;
-
-@tailwind components;
-
-@tailwind utilities;
-```
-
-## React icons
-
-공식 문서
-https://react-icons.github.io/react-icons/
-
-### 1. install
-
-```bash
-npm install react-icons --save
-```
-
-### 2. usage
-
-```javascript
-import { FaBeer } from "react-icons/fa";
-
-class Question extends React.Component {
-  render() {
-    return (
-      <h3>
-        {" "}
-        Lets go for a <FaBeer />?{" "}
-      </h3>
-    );
-  }
-}
-```
-
-### 1. installation for meteorjs, gatsbyjs, etc..
-
-```bash
-npm install @react-icons/all-files --save
-```
-
-```bash
-npm i daisyui
-```
-
-QUICK SETUP:
-
-1. Install and activate virtual environment
-   In the root folder, on the terminal create a virtual environment.
-   Terminal command: python -m venv [name of the environment (usually env)]
-   Activate command: source env/Scripts/activate
-
-2. Creating and setting up Django Project
-   a) Install django and all the main libraries :
-   a. pip install django
-   b. pip install djangorestframework django-cors-headers
-
-b) Create project in terminal: django-admin startproject backend
-c) Cd to the backend folder
-d) Create an app in django in the terminal
-a. python manage.py startapp [name of the app]
-
-3. Create a react app using vite
-   Go back to the root folder and:
-   a) npm create vite@latest frontend -- --template react
-   b) cd frontend
-   c) npm install
-
-4. Open VS code and the run the servers
-   a) In the root folder open VS code:
-   a. code .
-   b) Open two terminals and make sure your virtual environment is active
+과거의 집중도 분석은 `집중도 분석`메뉴로 들어가면 확인할 수 있다.
+(참고로, 방금 생성한 계정의 경우 과거의 기록이 없어서 아무런 기록이 없다)
+![img.png](img.png)
