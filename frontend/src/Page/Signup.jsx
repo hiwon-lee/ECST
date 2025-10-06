@@ -178,7 +178,7 @@ function Signup() {
                 </header>
                 <div className="text-center bg-white">
                     <div className="mx-auto shadow-md  w-80 p-16 mb-10 bg-white">
-                        <form action='http://localhost:8000/api/join/' method='post' onSubmit={onSubmit}>
+                        <form onSubmit={onSubmit}>
                             <label htmlFor="id"></label>
                             <div className="text-left text-black">
                                 ID
