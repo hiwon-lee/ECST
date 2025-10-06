@@ -4,7 +4,7 @@ import axios from "axios";
 import {useHistory} from 'react-router-dom';
 import React from "react";
 import Errormodal from "../components/Errormodal.jsx";
-import { http } from "../utils/http";
+import { http } from "../Utils/http";
 
 
 function Signup() {
