@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useHistory} from 'react-router-dom';
 import EmailorPwdError from "../components/EmailorPwdError.jsx";
-import { http } from "../utils/http";
+import { http } from "../Utils/http";
 
 
 function Loginerror() {
