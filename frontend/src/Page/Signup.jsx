@@ -4,6 +4,7 @@ import axios from "axios";
 import {useHistory} from 'react-router-dom';
 import React from "react";
 import Errormodal from "../components/Errormodal.jsx";
+import { http } from "../utils/http";
 
 
 function Signup() {
@@ -44,27 +45,31 @@ function Signup() {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            const result = await axios.post('http://127.0.0.1:8000/api/join/', {
-                user_login_id: id,
-                user_password: signuppwd,
-                user_name: name,
-                user_phone_number: tel,
-                user_email: signupemail
-            });
-
-            console.log("response", result);
-            if (result.status === 200) {
-                history.push('/login');
-            }
-
+          const result = await http.post("/api/join/", {
+            user_login_id: id,
+            user_password: signuppwd,
+            user_name: name,
+            user_phone_number: tel,
+            user_email: signupemail,
+          });
+    
+          if (result.status >= 200 && result.status < 300) {
+            history.push("/login");
+          } else {
+            setModalMsg("회원가입 처리 중 문제가 발생했습니다.");
+            setModal(true);
+          }
         } catch (error) {
-            console.error(error);
-
-            if (error.response && error.response.status === 500) {
-                setModal(true);
-
-
-            }
+          console.error(error);
+          const msg =
+            error?.response?.data?.message ||
+            (error?.response?.status === 409
+              ? "이미 존재하는 계정입니다."
+              : "서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+          setModalMsg(msg);
+          setModal(true);
+        } finally {
+          setIsLoading(false);
         }
 
     }
