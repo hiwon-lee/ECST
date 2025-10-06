@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useHistory} from 'react-router-dom';
 import EmailorPwdError from "../components/EmailorPwdError.jsx";
+import { http } from "../utils/http";
 
 
 function Loginerror() {
@@ -18,33 +19,30 @@ function Loginerror() {
   const handlesignin = async () => {
     console.log("로그인 성공");
     try {
-      await axios
-        .get("http://127.0.0.1:8000/api/login/", {
-          params: {
-            signin_email: email,
-            signin_pwd: pwd,
-          },
-        })
-        .then((response) => {
-          // 로그인 성공 -> 메인 페이지로 이동
-          console.log(response.data);
-          localStorage.setItem(USER_EMAIL, email);
-          history.push({
-            pathname: "/",
-            state: { email: email },
-          });
-        })
-        .catch((error) => {
-          // 로그인 실패 -> 다시 시도하도록 구성(todo)
-          console.error("Error:", error);
-          alert("이메일 혹은 비밀번호를 잘못입력하셨습니다.");
-          setErrorModal(true);
-        });
-    } catch (error) {
-      console.log(error);
+      // 백엔드가 GET /api/login/ 를 받는다고 하셨으니 그대로 둡니다.
+      const { data } = await http.get("/api/login/", {
+        params: {
+          signin_email: email,
+          signin_pwd: pwd,
+        },
+      });
+
+      // 성공 처리
+      console.log("login response:", data);
+      localStorage.setItem(USER_EMAIL, email);
+
+      history.push({
+        pathname: "/",
+        state: { email },
+      });
+    } catch (err) {
+      console.error("로그인 실패:", err);
+      setErrorMsg("이메일 혹은 비밀번호가 올바르지 않습니다.");
+      setErrorModal(true);
+    } finally {
+      setIsLoading(false);
     }
   };
-
   const modalClose = () => {
     setErrorModal(false);
     setErrorMsg("");
