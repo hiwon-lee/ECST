@@ -28,9 +28,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "ecst.onrender.com",  # ← 이 줄을 추가하세요
+]
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
